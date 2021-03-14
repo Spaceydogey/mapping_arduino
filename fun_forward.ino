@@ -43,7 +43,7 @@ void Forward(double Distance) //Distance in meters
     Speed = Speed + 0.05;
 
 
-//    regulation_foward(Distance,p1,p2)
+//    regulation_foward(Distance,p1,p2);
 
     //prints
     Serial.print("Speed");
@@ -117,7 +117,7 @@ void Forward(double Distance) //Distance in meters
   {
 
     pid(p1, p2);
-    //    regulation_foward(Distance,p1,p2)
+    //    regulation_foward(Distance,p1,p2);
     //Motor inputs
     int In_Pwm1 = round(power1 + u1);
     int In_Pwm2 = round(power2 + u2);
