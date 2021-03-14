@@ -22,6 +22,8 @@ JSONVar parseMessage(String data) {
 
   bLog("Message parsed: " + data, BLUETOOTH_MODULE_NAME);
 
+  sendMessage(7, []);
+  
   return myArray;
 }
 
@@ -37,8 +39,7 @@ void sendMessage(int type, JSONVar content) {
   jsonString.replace("]", "#");
 
   jsonString = ((String) type) + jsonString;
-  
-  bLog("Message sent: " + jsonString, BLUETOOTH_MODULE_NAME);
 
+  
   BTSerial.print(jsonString.c_str());
 }
