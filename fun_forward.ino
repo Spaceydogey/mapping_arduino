@@ -35,12 +35,12 @@ void Forward(double Distance) //Distance in meters
 
   //incresing speed loop
   while ((double)encoder1_value * a * WHEEL_RADIUS <= Distance and Speed < 0.5)
-  {
-    pid(p1, p2);
-    Speed = Speed + 0.05;
+  { 
     double power1 = SpeedtoPWMconverter1(Speed);
     double power2 = SpeedtoPWMconverter2(Speed);
-
+    pid(p1, p2);
+    Speed = Speed + 0.05;
+    
 
     //prints
     Serial.print("Speed");

@@ -5,6 +5,7 @@ void pid(double P1, double P2) {
 
   int Pos1 = encoder1_value;
   int Pos2 = encoder2_value;
+  
   int u01 = 0;
   int u02 = 0;
 
@@ -12,11 +13,18 @@ void pid(double P1, double P2) {
   //Speed integration
   rPos1 += Speed * timechange; //timechange is defined in the movement function for the moment
   rPos2 += Speed * timechange;
+  //rPos1 = Speed * timechange; //timechange is defined in the movement function for the moment
+  //rPos2 = Speed * timechange;
 
 
   //error calculation
   double error1 = rPos1 - Pos1;
   double error2 = rPos2 - Pos2;
+  //double error1 = rPos1 - last_pos1;
+  //double error2 = rPos2 - last_pos2;
+  
+  int last_pos1 = Pos1;  
+  int last_pos2 = Pos2;
 
   //output
   //u1 = sign(error1) * 60 + P1 * error1;
