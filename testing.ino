@@ -74,7 +74,7 @@ double rPos2;
 ///      GLOBAL     ///
 ///////////////////////
 
-const double a = PI / 360;
+const double a = PI / 180;
 
 ////////////////////////
 //      Bluetooth    ///
