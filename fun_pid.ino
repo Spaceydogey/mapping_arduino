@@ -12,18 +12,18 @@ void pid(double P1, double P2) {
 
  
   //Speed integration
-  //rPos1 += Speed * timechange; //timechange is defined in the movement function for the moment
-  //rPos2 += Speed * timechange;
-  rPos1 = Speed * timechange; //timechange is defined in the movement function for the moment
-  rPos2 = Speed * timechange;
+  rPos1 += Speed * timechange; //timechange is defined in the movement function for the moment
+  rPos2 += Speed * timechange;
+  //rPos1 = Speed * timechange; //timechange is defined in the movement function for the moment
+  //rPos2 = Speed * timechange;
   int d1 = Pos1 - last_pos1;
   int d2 = Pos2 - last_pos2;
     
   //error calculation
-  //double error1 = rPos1 - Pos1;
-  //double error2 = rPos2 - Pos2;
-  double error1 = rPos1 - d1;
-  double error2 = rPos2 - d2;
+  double error1 = rPos1 - Pos1;
+  double error2 = rPos2 - Pos2;
+  //double error1 = rPos1 - d1;
+  //double error2 = rPos2 - d2;
   
   last_pos1 = Pos1;  
   last_pos2 = Pos2;
@@ -72,12 +72,17 @@ void regulation_foward(double distance, double P1, double P2)
     int Pos1 = encoder1_value;
     int Pos2 = encoder2_value;
     error = Pos1 - Pos2;
-    double u1 = P1 * error;
-    double u2 = -P2 * error;
+    double u1 = -P1 * error;
+    double u2 = P2 * error;
     double power1 = SpeedtoPWMconverter1(Speed);
     double power2 = SpeedtoPWMconverter2(Speed);
     int In_Pwm1 = round(power1 + u1);
     int In_Pwm2 = round(power2 + u2);
+     if (In_Pwm1 >= 120) In_Pwm1 = 120;
+    if (In_Pwm2 >= 115) In_Pwm2 = 115;
+    if (In_Pwm1  < initial_pwm1 ) In_Pwm1 = initial_pwm1;
+    if (In_Pwm2 < initial_pwm2) In_Pwm2 = initial_pwm2;
+
 
     lastTime = millis();
     analogWrite(PWM1, In_Pwm1);  //PWM Speed Control
