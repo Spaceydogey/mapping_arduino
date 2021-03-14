@@ -11,17 +11,17 @@ void pid(double P1, double P2) {
 
  
   //Speed integration
-  rPos1 += Speed * timechange; //timechange is defined in the movement function for the moment
-  rPos2 += Speed * timechange;
-  //rPos1 = Speed * timechange; //timechange is defined in the movement function for the moment
-  //rPos2 = Speed * timechange;
+  //rPos1 += Speed * timechange; //timechange is defined in the movement function for the moment
+  //rPos2 += Speed * timechange;
+  rPos1 = Speed * timechange; //timechange is defined in the movement function for the moment
+  rPos2 = Speed * timechange;
 
 
   //error calculation
-  double error1 = rPos1 - Pos1;
-  double error2 = rPos2 - Pos2;
-  //double error1 = rPos1 - last_pos1;
-  //double error2 = rPos2 - last_pos2;
+  //double error1 = rPos1 - Pos1;
+  //double error2 = rPos2 - Pos2;
+  double error1 = rPos1 - last_pos1;
+  double error2 = rPos2 - last_pos2;
   
   int last_pos1 = Pos1;  
   int last_pos2 = Pos2;
@@ -56,8 +56,28 @@ void pid(double P1, double P2) {
 }
 
 
+///////////////////////////////////////////////////////
+////////////////////other pid//////////////////////////
+///////////////////////////////////////////////////////
+void regulation_foward(double distance, double P1, double P2)
+{
+
+  while (error = ! 0 and ((double)encoder1_value * (double)encoder2_value) * (double) * 0.5 * a * WHEEL_RADIUS <= distance)
+  {
+    int Pos1 = encoder1_value;
+    int Pos2 = encoder2_value;
+    error = Pos1 - Pos2;
+    double u1 = P1 * error;
+    double u2 = -P2 * error;
 
 
+    lastTime = millis();
+    analogWrite(PWM1, In_Pwm1);  //PWM Speed Control
+    analogWrite(PWM2, In_Pwm2);
+    now = millis();
+    timechange = now - lastTime ;
+
+  }
 
 ////////////////////////////////////////////////////////
 
