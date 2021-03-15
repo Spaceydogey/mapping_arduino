@@ -45,8 +45,8 @@ const int PWM2 = 9;
 const int DIR2 = 2;
 
 
-double p1 = 0.12;
-double p2  = 0.09;
+double p1 = 2;
+double p2  = 2;
 
 const double WHEEL_RADIUS =  0.0405;
 
@@ -120,11 +120,15 @@ void setup() {
 }
 
 
-
+void pidloop()
+{
+Forward(1);
+delay(1000);
+}
 void loop() {
   //prodLoop();
-  testLoop();
-  
+ //testLoop();
+  pidloop();
 }
 
 void testLoop() {

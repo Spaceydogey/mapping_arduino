@@ -3,7 +3,7 @@
 
 void _resetEncoders() {
   encoder1_value = 0;
-  encoder2_value = 1;
+  encoder2_value = 0;
 }
 
 void _changeModes(int mode1, int mode2) {
@@ -59,11 +59,15 @@ void Forward(double Distance) //Distance in meters
     Serial.print("\n");
 
     //Motor inputs
-    int In_Pwm1 = round(power1 + u1);
-    int In_Pwm2 = round(power2 + u2);
+//    int In_Pwm1 = round(power1 + u1);
+//    int In_Pwm2 = round(power2 + u2);
+    int In_Pwm1 = round(u1);
+    int In_Pwm2 = round(u2);
+    In_Pwm1 = abs(In_Pwm1);
+    In_Pwm2 = abs(In_Pwm2);
     //max and min for the inputs
-    if (In_Pwm1 >= 120) In_Pwm1 = 120;
-    if (In_Pwm2 >= 115) In_Pwm2 = 115;
+    //if (In_Pwm1 >= 120) In_Pwm1 = 120;
+    //if (In_Pwm2 >= 115) In_Pwm2 = 115;
     if (In_Pwm1  < initial_pwm1 ) In_Pwm1 = initial_pwm1;
     if (In_Pwm2 < initial_pwm2) In_Pwm2 = initial_pwm2;
 
@@ -121,6 +125,8 @@ void Forward(double Distance) //Distance in meters
     //Motor inputs
     int In_Pwm1 = round(power1 + u1);
     int In_Pwm2 = round(power2 + u2);
+    //In_Pwm1 = abs(In_Pwm1);
+    //In_Pwm2 = abs(In_Pwm2);
     //min max motors input
     if (In_Pwm1 >= 120) In_Pwm1 = 120;
     if (In_Pwm2 >= 115) In_Pwm2 = 115;

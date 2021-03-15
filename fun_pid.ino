@@ -1,7 +1,13 @@
 ///////////////////////////almost working/////////////////////////////
 
 int last_pos1 = 0 ;  
-  int last_pos2 = 0;
+int last_pos2 = 0;
+double last_error1 = 0;
+double last_error2 = 0 ;
+
+
+
+
 void pid(double P1, double P2) {
 
   int Pos1 = encoder1_value;
@@ -12,27 +18,32 @@ void pid(double P1, double P2) {
 
  
   //Speed integration
-  //rPos1 += Speed * timechange; //timechange is defined in the movement function for the moment
-  //rPos2 += Speed * timechange;
-  rPos1 = Speed * timechange; //timechange is defined in the movement function for the moment
-  rPos2 = Speed * timechange;
-  int d1 = Pos1 - last_pos1;
-  int d2 = Pos2 - last_pos2;
+  rPos1 += Speed * timechange; //timechange is defined in the movement function for the moment
+  rPos2 += Speed * timechange;
+  //rPos1 = Speed * timechange; //timechange is defined in the movement function for the moment
+  //rPos2 = Speed * timechange;
+  //int d1 = Pos1 - last_pos1;
+  //int d2 = Pos2 - last_pos2;
     
   //error calculation
-  //double error1 = rPos1 - Pos1;
-  //double error2 = rPos2 - Pos2;
-  double error1 = rPos1 - d1;
-  double error2 = rPos2 - d2;
+  double error1 = rPos1 - Pos1;
+  double error2 = rPos2 - Pos2;
+  //double rate_error1 = (error1 - last_error1)/timechange;
+  //double rate_error2 = (error2 - last_error2)/timechange;
+  //double error1 = rPos1 - d1;
+  //double error2 = rPos2 - d2;
+
   
-  last_pos1 = Pos1;  
-  last_pos2 = Pos2;
+  double last_error1 = error1;
+  double last_error2 = error2 ;
+  //last_pos1 = Pos1;  
+  //last_pos2 = Pos2;
 
   //output
-  //u1 = sign(error1) * 60 + P1 * error1;
-  //u2 = sign(error2) * 50 + P2 * error2;
-  u1 =P1 * error1;
-  u2 =P2 * error2;
+  u1 = initial_pwm1; + P1 * error1;
+  u2 = initial_pwm2 + P2 * error2;
+  //u1 =P1 * error1 + 0.004*rate_error1;
+  //u2 =P2 * error2 + 0006*rate_error2;
    
 //prints
   Serial.print("pos 1 & 2"); 
@@ -76,8 +87,10 @@ void regulation_foward(double distance, double P1, double P2)
     double u2 = -P2 * error;
     double power1 = SpeedtoPWMconverter1(Speed);
     double power2 = SpeedtoPWMconverter2(Speed);
-    int In_Pwm1 = round(power1 + u1);
-    int In_Pwm2 = round(power2 + u2);
+    int In_Pwm1 = round(u1);
+    int In_Pwm2 = round(u2);
+    In_Pwm1 = abs(In_Pwm1);
+    In_Pwm2 = abs(In_Pwm2);
 
     lastTime = millis();
     analogWrite(PWM1, In_Pwm1);  //PWM Speed Control
