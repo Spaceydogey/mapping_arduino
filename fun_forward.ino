@@ -38,12 +38,12 @@ void Forward(double Distance) //Distance in meters
   { 
     double power1 = SpeedtoPWMconverter1(Speed);
     double power2 = SpeedtoPWMconverter2(Speed);
-    pid(p1, p2);
+//    pid(p1, p2);
     
     Speed = Speed + 0.05;
 
 
-//    regulation_foward(Distance,p1,p2);
+    regulation_foward(Distance,p1,p2);
 
     //prints
     Serial.print("Speed");
@@ -120,13 +120,20 @@ void Forward(double Distance) //Distance in meters
   while ((double)encoder1_value * a * WHEEL_RADIUS <= Distance)
   {
 
-    pid(p1, p2);
-    //    regulation_foward(Distance,p1,p2);
+   // pid(p1, p2);
+        regulation_foward(Distance,p1,p2);
     //Motor inputs
+<<<<<<< HEAD
     int In_Pwm1 = round(power1 + u1);
     int In_Pwm2 = round(power2 + u2);
     //In_Pwm1 = abs(In_Pwm1);
     //In_Pwm2 = abs(In_Pwm2);
+=======
+    //int In_Pwm1 = round(power1 + u1);
+    //int In_Pwm2 = round(power2 + u2);
+    int In_Pwm1 = round(power1 );
+    int In_Pwm2 = round(power2 );
+>>>>>>> 9234100b4eb3e4e1657c175d3a895586643d176f
     //min max motors input
     if (In_Pwm1 >= 120) In_Pwm1 = 120;
     if (In_Pwm2 >= 115) In_Pwm2 = 115;
